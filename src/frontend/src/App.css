@@ -1,3 +1,6 @@
+@import "styles/Button.css";
+@import "styles/Checkbox.css";
+
 @font-face {
   font-family: 'Oswald-Regular';
   src: url('../assets/fonts/Oswald/Oswald-Regular.ttf') format('truetype');
@@ -5,6 +8,14 @@
 @font-face {
   font-family: 'Oswald-Medium';
   src: url('../assets/fonts/Oswald/Oswald-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Oswald-Bold';
+  src: url('../assets/fonts/Oswald/Oswald-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Oswald-Light';
+  src: url('../assets/fonts/Oswald/Oswald-Light.ttf') format('truetype');
 }
 
 :root {
@@ -14,47 +25,45 @@
   --error: #AC5045;
   --success: #658761;
 
-  --main-font: 'Oswald-Medium';
+  --main-font: 'Oswald-Bold';
   --thin-font: 'Oswald-Regular';
+  --medium-font: 'Oswald-Medium';
+  --light-font: 'Oswald-Light';
+
+  --border-width: 3px;
 }
 
 .App {
   text-align: center;
+  font-family: var(--main-font), sans-serif;
+}
+
+h1 {
+  font-family: var(--medium-font), sans-serif;
+  font-size: 96px;
+  margin: 0;
+}
+h2 {
+  font-family: var(--medium-font), sans-serif;
+  font-size: 64px;
+  margin: 0;
+}
+h3 {
+  font-family: var(--medium-font), sans-serif;
+  font-size: 48px;
+  margin: 0;
+}
+h4 {
+  font-family: var(--medium-font), sans-serif;
+  font-size: 32px;
+  margin: 0;
+}
+p {
+  font-family: var(--light-font), sans-serif;
+  font-size: 24px;
+  margin: 0;
 }
 
 body {
   background-color: var(--bright);
-}
-
-button {
-  font-family: var(--main-font), sans-serif;
-  font-size: 16px;
-
-  background-color: var(--bright);
-
-  border-color: var(--dark);
-  border-style: solid;
-  border-width: 3px;
-  border-radius: 10px;
-
-  box-shadow: 3px 3px 0px var(--dark);
-
-  transition:
-          box-shadow 0.075s ease-in-out,
-          transform 0.075s ease-in-out;
-}
-button:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px var(--dark);
-}
-button:active  {
-  transform: translate(1px, 1px);
-  box-shadow: 2px 2px var(--dark);
-}
-
-button.success {
-  background-color: var(--success);
-}
-button.error {
-  background-color: var(--error);
 }

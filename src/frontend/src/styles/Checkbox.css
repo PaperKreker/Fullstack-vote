@@ -1,0 +1,76 @@
+input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+}
+input[type="checkbox"]:before {
+    position: relative;
+    display: block;
+
+    top: calc(-1 * var(--border-width));
+    left: calc(-1 * var(--border-width));
+
+    width: 100%;
+    height: 100%;
+
+    border-color: var(--dark);
+    border-style: solid;
+    border-width: var(--border-width);
+    border-radius: 10px;
+
+    content: "";
+
+    background: var(--bright);
+
+    box-shadow: 3px 3px var(--dark);
+
+    transition:
+            box-shadow 0.075s ease-in-out,
+            transform 0.075s ease-in-out;
+}
+
+input[type="checkbox"]:after {
+    position: relative;
+    display: block;
+
+    top: calc((-100% - 3 * var(--border-width)));
+    left: calc(-1 * var(--border-width));
+
+    border-color: var(--dark);
+    border-style: solid;
+    border-radius: 10px;
+    border-width: var(--border-width);
+
+    content: "";
+
+    width: 100%;
+    height: 100%;
+
+    background-position: center;
+    background-size: cover;
+
+    transition:
+            transform 0.075s ease-in-out;
+}
+
+input[type="checkbox"]:checked:after {
+    background-image: url("../../assets/images/tick.svg");
+    background-color: var(--dark);
+}
+
+input[type="checkbox"]:not(:disabled):hover:before {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px var(--dark);
+}
+
+input[type="checkbox"]:not(:disabled):active:before {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px var(--dark);
+}
+
+input[type="checkbox"]:not(:disabled):hover:after {
+    transform: translate(-1px, -1px);
+}
+
+input[type="checkbox"]:not(:disabled):active:after {
+    transform: translate(1px, 1px);
+}
