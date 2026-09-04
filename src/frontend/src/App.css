@@ -1,5 +1,6 @@
 @import "styles/Button.css";
 @import "styles/Checkbox.css";
+@import "styles/Radio.css";
 
 @font-face {
   font-family: 'Oswald-Regular';
@@ -34,7 +35,7 @@
 }
 
 .App {
-  text-align: center;
+  margin: 30px;
   font-family: var(--main-font), sans-serif;
 }
 

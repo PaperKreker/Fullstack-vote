@@ -9,8 +9,24 @@ export function Components() {
             <button>Тестовая кнопа</button>
             <button className={"success"}>Успех</button>
             <button className={"error"}>Ошибка</button>
-            <input type="checkbox"/>
-            <input type="radio"/>
+            <div style={{marginTop: '15px', display: 'flex', flexDirection: 'column', gap: '5px'}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <input type="checkbox"/>
+                    <label>Первый вариант</label>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <input type="checkbox"/>
+                    <label>Второй вариант</label>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <input type="radio" name="1"/>
+                    <label>Первый вариант</label>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <input type="radio" name="1"/>
+                    <label>Второй вариант</label>
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,9 +1,10 @@
-input[type="checkbox"] {
+input[type="radio"] {
     width: 24px;
     height: 24px;
     margin: 5px;
 }
-input[type="checkbox"]:before {
+
+input[type="radio"]:before {
     position: relative;
     display: block;
 
@@ -15,8 +16,8 @@ input[type="checkbox"]:before {
 
     border-color: var(--dark);
     border-style: solid;
+    border-radius: 50%;
     border-width: var(--border-width);
-    border-radius: 10px;
 
     content: "";
 
@@ -29,7 +30,7 @@ input[type="checkbox"]:before {
             transform 0.075s ease-in-out;
 }
 
-input[type="checkbox"]:after {
+input[type="radio"]:after {
     position: relative;
     display: block;
 
@@ -38,7 +39,7 @@ input[type="checkbox"]:after {
 
     border-color: var(--dark);
     border-style: solid;
-    border-radius: 10px;
+    border-radius: 50%;
     border-width: var(--border-width);
 
     content: "";
@@ -53,25 +54,24 @@ input[type="checkbox"]:after {
             transform 0.075s ease-in-out;
 }
 
-input[type="checkbox"]:checked:after {
-    background-image: url("../../assets/images/tick.svg");
-    background-color: var(--dark);
+input[type="radio"]:checked:after {
+    background-image: url("../../assets/images/dot.svg");
 }
 
-input[type="checkbox"]:not(:disabled):hover:before {
+input[type="radio"]:not(:disabled):hover:before {
     transform: translate(-1px, -1px);
     box-shadow: 4px 4px var(--dark);
 }
 
-input[type="checkbox"]:not(:disabled):active:before {
+input[type="radio"]:not(:disabled):active:before {
     transform: translate(1px, 1px);
     box-shadow: 2px 2px var(--dark);
 }
 
-input[type="checkbox"]:not(:disabled):hover:after {
+input[type="radio"]:not(:disabled):hover:after {
     transform: translate(-1px, -1px);
 }
 
-input[type="checkbox"]:not(:disabled):active:after {
+input[type="radio"]:not(:disabled):active:after {
     transform: translate(1px, 1px);
 }
