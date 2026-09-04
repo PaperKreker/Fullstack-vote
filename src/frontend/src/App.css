@@ -1,38 +1,60 @@
+@font-face {
+  font-family: 'Oswald-Regular';
+  src: url('../assets/fonts/Oswald/Oswald-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Oswald-Medium';
+  src: url('../assets/fonts/Oswald/Oswald-Medium.ttf') format('truetype');
+}
+
+:root {
+  --dark: #1A1A1A;
+  --bright: #DCC9A9;
+  --white: #FFFFFF;
+  --error: #AC5045;
+  --success: #658761;
+
+  --main-font: 'Oswald-Medium';
+  --thin-font: 'Oswald-Regular';
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: var(--bright);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+  font-family: var(--main-font), sans-serif;
+  font-size: 16px;
+
+  background-color: var(--bright);
+
+  border-color: var(--dark);
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 10px;
+
+  box-shadow: 3px 3px 0px var(--dark);
+
+  transition:
+          box-shadow 0.075s ease-in-out,
+          transform 0.075s ease-in-out;
+}
+button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px var(--dark);
+}
+button:active  {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px var(--dark);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+button.success {
+  background-color: var(--success);
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button.error {
+  background-color: var(--error);
 }
