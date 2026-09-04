@@ -1,6 +1,7 @@
 @import "styles/Button.css";
 @import "styles/Checkbox.css";
 @import "styles/Radio.css";
+@import "styles/Input.css";
 
 @font-face {
   font-family: 'Oswald-Regular';
@@ -25,6 +26,7 @@
   --white: #FFFFFF;
   --error: #AC5045;
   --success: #658761;
+  --gray: #A0A0A0;
 
   --main-font: 'Oswald-Bold';
   --thin-font: 'Oswald-Regular';

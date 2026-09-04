@@ -9,7 +9,9 @@ export function Components() {
             <button>Тестовая кнопа</button>
             <button className={"success"}>Успех</button>
             <button className={"error"}>Ошибка</button>
+
             <div style={{marginTop: '15px', display: 'flex', flexDirection: 'column', gap: '5px'}}>
+                <input type={'text'} style={{maxWidth: '300px'}} placeholder={'Введите текст...'}/>
                 <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
                     <input type="checkbox"/>
                     <label>Первый вариант</label>
