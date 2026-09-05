@@ -2,6 +2,7 @@
 @import "styles/Checkbox.css";
 @import "styles/Radio.css";
 @import "styles/Input.css";
+@import "styles/Modal.css";
 
 @font-face {
   font-family: 'Oswald-Regular';

@@ -1,5 +1,7 @@
 import {SingleAnswerForm} from "../components/SingleAnswerForm";
 import {AppHeader} from "../components/AppHeader";
+import {AuthModal} from "../components/AuthModal";
+import {RegisterModal} from "../components/RegisterModal";
 
 export function MainPage() {
     return (
@@ -9,6 +11,7 @@ export function MainPage() {
                 title={"Сколько?"}
                 description={"Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание "}
                 answers={["Первый вариант", "Второй вариант", "Третий вариант"]}/>
+            <RegisterModal/>
         </div>
     )
 }

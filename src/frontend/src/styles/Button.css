@@ -9,7 +9,7 @@ button {
     border-width: var(--border-width);
     border-radius: 10px;
 
-    box-shadow: 3px 3px 0px var(--dark);
+    box-shadow: 3px 3px 0 var(--dark);
 
     transition:
             box-shadow 0.075s ease-in-out,

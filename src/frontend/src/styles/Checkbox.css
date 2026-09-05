@@ -54,7 +54,7 @@ input[type="checkbox"]:after {
 }
 
 input[type="checkbox"]:checked:after {
-    background-image: url("../../assets/images/tick.svg");
+    background-image: url("../images/tick.svg");
     background-color: var(--dark);
 }
 

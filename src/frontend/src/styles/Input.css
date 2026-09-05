@@ -1,4 +1,5 @@
-input[type="text"] {
+input[type="text"],
+input[type="password"]{
     font-family: var(--main-font), sans-serif;
     font-size: 16px;
 
@@ -9,17 +10,19 @@ input[type="text"] {
     border-width: var(--border-width);
     border-radius: 10px;
 
-    box-shadow: 3px 3px 0px var(--dark);
+    box-shadow: 3px 3px 0 var(--dark);
 
     transition:
             box-shadow 0.075s ease-in-out,
             transform 0.075s ease-in-out;
 }
-input[type="text"]:hover {
+input[type="text"]:hover,
+input[type="password"]:hover {
     transform: translate(-1px, -1px);
     box-shadow: 4px 4px var(--dark);
 }
-input[type="text"]:active  {
+input[type="text"]:active,
+input[type="password"]:active  {
     transform: translate(1px, 1px);
     box-shadow: 2px 2px var(--dark);
 }
