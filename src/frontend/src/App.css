@@ -37,28 +37,34 @@
 }
 
 .App {
-  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 0 10px 0 10px;
   font-family: var(--main-font), sans-serif;
+  gap: 15px;
+  max-width: 1024px;
 }
 
 h1 {
   font-family: var(--medium-font), sans-serif;
-  font-size: 96px;
+  overflow-wrap: break-word;
+  font-size: clamp(28px, 10vw, 64px);
   margin: 0;
 }
 h2 {
   font-family: var(--medium-font), sans-serif;
-  font-size: 64px;
+  font-size: clamp(24px, 10vw, 48px);
   margin: 0;
 }
 h3 {
   font-family: var(--medium-font), sans-serif;
-  font-size: 48px;
+  font-size: 32px;
   margin: 0;
 }
 h4 {
   font-family: var(--medium-font), sans-serif;
-  font-size: 32px;
+  font-size: 26px;
   margin: 0;
 }
 p {
@@ -69,4 +75,24 @@ p {
 
 body {
   background-color: var(--bright);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.roundedFrame {
+  border-color: var(--dark);
+  border-style: solid;
+  border-width: calc(var(--border-width) * 2);
+  border-radius: 10px;
+}
+
+.line {
+  background-color: var(--dark);
+  height: var(--border-width);
+  margin: 10px 0 10px 0;
 }

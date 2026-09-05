@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
       </header>
       <main className="App-main">
-        <Components></Components>
+        <MainPage></MainPage>
       </main>
     </div>
   );

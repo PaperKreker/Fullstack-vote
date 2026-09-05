@@ -1,10 +1,14 @@
+import {SingleAnswerForm} from "../components/SingleAnswerForm";
+import {AppHeader} from "../components/AppHeader";
+
 export function MainPage() {
     return (
         <div className="App">
-            <p>Test</p>
-            <button>Тестовая кнопа</button>
-            <button className={"success"}>Успех</button>
-            <button className={"error"}>Ошибка</button>
+            <AppHeader/>
+            <SingleAnswerForm
+                title={"Сколько?"}
+                description={"Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание "}
+                answers={["Первый вариант", "Второй вариант", "Третий вариант"]}/>
         </div>
     )
 }
