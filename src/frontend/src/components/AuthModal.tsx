@@ -1,20 +1,35 @@
 import {InputFieldWithLabel} from "./InputFieldWithLabel";
-import {CloseButton} from "./CloseButton";
+import {useState} from "react";
+import {Modal} from "./Modal";
 
-export function AuthModal() {
+export function AuthModal(
+    {onClose, onSwitchToRegister} :
+    {onClose: () => void, onSwitchToRegister: () => void}){
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
+
     return (
-        <div className={"modal-overlay"}>
-            <div className={"modal"}>
-                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
-                    <h3>Авторизация</h3>
-                    <CloseButton/>
-                </div>
-                <form>
-                    <InputFieldWithLabel label={"Логин"} inputType={"text"} placeholder={"Вася..."}/>
-                    <InputFieldWithLabel label={"Пароль"} inputType={"password"} placeholder={"********"}/>
-                </form>
+        <Modal
+            title={"Авторизация"}
+            onClose={onClose}>
+            <form>
+                <InputFieldWithLabel
+                    label={"Логин"}
+                    inputType={"text"}
+                    placeholder={"Вася..."}
+                    value={login}
+                    onChange={setLogin}/>
+                <InputFieldWithLabel
+                    label={"Пароль"}
+                    inputType={"password"}
+                    placeholder={"********"}
+                    value={password}
+                    onChange={setPassword}/>
+            </form>
+            <div style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
                 <button className={"success"}>Войти</button>
+                <button onClick={onSwitchToRegister}>Зарегистрироваться</button>
             </div>
-        </div>
+        </Modal>
     )
 }
