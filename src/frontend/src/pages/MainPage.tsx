@@ -3,10 +3,10 @@ import {AppHeader} from "../components/AppHeader";
 import {AuthModal} from "../components/AuthModal";
 import {RegisterModal} from "../components/RegisterModal";
 
-export function MainPage() {
+export function MainPage({onOpenProfile} : {onOpenProfile: () => void}) {
     return (
         <div className="App">
-            <AppHeader/>
+            <AppHeader onOpenProfile={onOpenProfile}/>
             <SingleAnswerForm
                 title={"Сколько?"}
                 description={"Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание Тестовое описание "}

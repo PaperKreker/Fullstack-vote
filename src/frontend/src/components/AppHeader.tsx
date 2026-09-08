@@ -7,7 +7,7 @@ type User = {
     name: string,
 }
 
-export function AppHeader() {
+export function AppHeader({onOpenProfile} : {onOpenProfile: () => void}) {
     const [modal, setModal] = useState<ModalType>(null);
     const [authenticatedUser, setAuthenticatedUser] = useState<User>({name: "тест"});
 
@@ -23,7 +23,7 @@ export function AppHeader() {
                 ? (
                     <div>
                         <p>{authenticatedUser?.name}</p>
-                        <button>Открыть профиль</button>
+                        <button onClick={onOpenProfile}>Открыть профиль</button>
                     </div>
                 )
                 : (

@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="399d568f-606b-4d94-bc61-5627567681ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/CreateForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EditSingleAnswerItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Modal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/CreateVotePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AppHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AppHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CloseButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CloseButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputFieldWithLabel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputFieldWithLabel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RegisterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RegisterModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CreateVotePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CreateVotePage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MainPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +100,7 @@
       <updated>1788538213972</updated>
       <workItem from="1788538215111" duration="12216000" />
       <workItem from="1788596196474" duration="8461000" />
-      <workItem from="1788776962105" duration="10250000" />
+      <workItem from="1788776962105" duration="10634000" />
     </task>
     <servers />
   </component>
