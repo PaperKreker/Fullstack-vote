@@ -1,33 +1,37 @@
 import React from 'react';
 import { useState } from 'react';
 import './App.css';
-import { MainPage } from './pages/MainPage';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {AppHeader} from "./components/AppHeader";
+import {HomePage} from './pages/HomePage';
+import {VotePage} from './pages/VotePage';
 import {CreateVotePage} from "./pages/CreateVotePage";
 import {ProfilePage} from "./pages/ProfilePage";
 
-type PageType = "main" | "profile" | "create";
-
 function App() {
-  const [page, setPage] = useState<PageType>("main");
+  const [authenticatedUser, setAuthenticatedUser] = useState<{name: string} | null>(null);
+
+  const login = (name: string) => {
+      setAuthenticatedUser({name: name});
+  };
+
+  const logout = () => {
+      setAuthenticatedUser(null);
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
-      <main className="App-main">
-          {page === "main" && (
-              <MainPage onOpenProfile={() => setPage("profile")}/>
-          )}
-          {page === "profile" && (
-              <ProfilePage
-                  onOpenProfile={() => setPage("profile")}
-                  onCreateVote={() => setPage("create")}
-                  onLogout={() => setPage("main")}/>
-          )}
-          {page === "create" && (
-              <CreateVotePage onOpenProfile={() => setPage("profile")}/>
-          )}
-      </main>
+        <BrowserRouter>
+            <AppHeader authenticatedUser={authenticatedUser} onLogin={login}/>
+            <Routes>
+                <Route path="/" element={<HomePage/>}/>
+                <Route path="/vote/:id" element={<VotePage/>}/>
+                <Route path="/profile" element={
+                    <ProfilePage authenticatedUser={authenticatedUser} onLogout={logout}/>}/>
+                <Route path="/create" element={
+                    <CreateVotePage authenticatedUser={authenticatedUser}/>}/>
+            </Routes>
+        </BrowserRouter>
     </div>
   );
 }

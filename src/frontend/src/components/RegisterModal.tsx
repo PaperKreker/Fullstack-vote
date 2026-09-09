@@ -4,8 +4,8 @@ import {useState} from "react";
 import {Modal} from "./Modal";
 
 export function RegisterModal(
-    {onClose, onSwitchToAuth} :
-    {onClose: () => void, onSwitchToAuth: () => void}){
+    {onClose, onSwitchToAuth, onLogin} :
+    {onClose: () => void, onSwitchToAuth: () => void, onLogin: (name: string) => void}){
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -35,7 +35,7 @@ export function RegisterModal(
                     onChange={setRepeatPassword}/>
             </form>
             <div style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
-                <button className={"success"}>Зарегистрироваться</button>
+                <button className={"success"} onClick={() => onLogin(login)}>Зарегистрироваться</button>
                 <button onClick={onSwitchToAuth}>Войти</button>
             </div>
         </Modal>);

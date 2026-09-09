@@ -1,15 +1,20 @@
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {AuthModal} from "./AuthModal";
 import {RegisterModal} from "./RegisterModal";
 
 type ModalType = "auth" | "register" | null;
-type User = {
-    name: string,
-}
 
-export function AppHeader({onOpenProfile} : {onOpenProfile: () => void}) {
+export function AppHeader(
+    {authenticatedUser, onLogin} :
+    {authenticatedUser: {name: string} | null, onLogin: (name: string) => void}) {
+    const navigate = useNavigate();
     const [modal, setModal] = useState<ModalType>(null);
-    const [authenticatedUser, setAuthenticatedUser] = useState<User>({name: "тест"});
+
+    const handleLogin = (name: string) => {
+        onLogin(name);
+        setModal(null);
+    };
 
     return (
         <div style={{
@@ -18,12 +23,12 @@ export function AppHeader({onOpenProfile} : {onOpenProfile: () => void}) {
             alignItems: "center",
             paddingRight: "20px",
             gap: "10px"}} className="roundedFrame">
-            <h1 style={{marginLeft: '15px'}}>Голосование и опросы</h1>
+            <h1 style={{marginLeft: '15px'}} onClick={() => navigate("/")}>Голосование и опросы</h1>
             {authenticatedUser
                 ? (
                     <div>
                         <p>{authenticatedUser?.name}</p>
-                        <button onClick={onOpenProfile}>Открыть профиль</button>
+                        <button onClick={() => navigate("/profile")}>Открыть профиль</button>
                     </div>
                 )
                 : (
@@ -32,12 +37,14 @@ export function AppHeader({onOpenProfile} : {onOpenProfile: () => void}) {
             {modal === "auth" && (
                 <AuthModal
                     onClose={() => setModal(null)}
-                    onSwitchToRegister={() => setModal("register")}/>
+                    onSwitchToRegister={() => setModal("register")}
+                    onLogin={handleLogin}/>
             )}
             {modal === "register" && (
                 <RegisterModal
                     onClose={() => setModal(null)}
-                    onSwitchToAuth={() => setModal("auth")}/>
+                    onSwitchToAuth={() => setModal("auth")}
+                    onLogin={handleLogin}/>
             )}
         </div>
     )

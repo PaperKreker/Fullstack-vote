@@ -3,8 +3,8 @@ import {useState} from "react";
 import {Modal} from "./Modal";
 
 export function AuthModal(
-    {onClose, onSwitchToRegister} :
-    {onClose: () => void, onSwitchToRegister: () => void}){
+    {onClose, onSwitchToRegister, onLogin} :
+    {onClose: () => void, onSwitchToRegister: () => void, onLogin: (name: string) => void}){
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
@@ -27,7 +27,7 @@ export function AuthModal(
                     onChange={setPassword}/>
             </form>
             <div style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
-                <button className={"success"}>Войти</button>
+                <button className={"success"} onClick={() => onLogin(login)}>Войти</button>
                 <button onClick={onSwitchToRegister}>Зарегистрироваться</button>
             </div>
         </Modal>

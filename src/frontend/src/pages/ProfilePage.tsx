@@ -1,9 +1,11 @@
 import {useState} from "react";
-import {AppHeader} from "../components/AppHeader";
+import {useNavigate} from "react-router-dom";
 import {PublishedVoteItem} from "../components/PublishedVoteItem";
 
-export function ProfilePage({onOpenProfile, onCreateVote, onLogout} : {onOpenProfile: () => void, onCreateVote: () => void, onLogout: () => void}) {
-    const name = "тест";
+export function ProfilePage(
+    {authenticatedUser, onLogout} :
+    {authenticatedUser: {name: string} | null, onLogout: () => void}) {
+    const navigate = useNavigate();
     const [publishedVotes, setPublishedVotes] = useState([
         {
             title: "Сколько?",
@@ -33,20 +35,34 @@ export function ProfilePage({onOpenProfile, onCreateVote, onLogout} : {onOpenPro
         });
     };
 
-    return (
-        <div className="App">
-            <AppHeader onOpenProfile={onOpenProfile}/>
-            <div style={{padding: '0 15px 15px 15px'}} className="roundedFrame">
+    const handleLogout = () => {
+        onLogout();
+        navigate("/");
+    };
+
+    if (!authenticatedUser) {
+        return (
+            <div className="roundedFrame">
                 <h2>Профиль</h2>
-                <p><b>Логин:</b> {name}</p>
+                <p>Чтобы посмотреть профиль, нужно зайти в аккаунт.</p>
+                <p>Нажмите кнопку «Войти» сверху справа.</p>
+            </div>
+        )
+    }
+
+    return (
+        <>
+            <div className="roundedFrame">
+                <h2>Профиль</h2>
+                <p><b>Логин:</b> {authenticatedUser.name}</p>
                 <div className={"line"}/>
                 <div style={{display: 'flex', gap: '10px'}}>
-                    <button className={"error"} onClick={onLogout}>Выйти</button>
+                    <button className={"error"} onClick={handleLogout}>Выйти</button>
                 </div>
             </div>
-            <div style={{padding: '0 15px 15px 15px'}} className="roundedFrame">
+            <div className="roundedFrame">
                 <h2>Мои голосования</h2>
-                <button className={"success"} onClick={onCreateVote}>Создать голосование</button>
+                <button className={"success"} onClick={() => navigate("/create")}>Создать голосование</button>
                 <div className={"line"}/>
                 <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
                     {publishedVotes.map((vote, index) => (
@@ -61,6 +77,6 @@ export function ProfilePage({onOpenProfile, onCreateVote, onLogout} : {onOpenPro
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
