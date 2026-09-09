@@ -1,0 +1,21 @@
+.resultBar {
+    background-color: var(--bright);
+
+    border-color: var(--dark);
+    border-style: solid;
+    border-width: var(--border-width);
+    border-radius: 10px;
+
+    height: 20px;
+    width: 100%;
+
+    overflow: hidden;
+}
+
+.resultBarFill {
+    background-color: var(--success);
+
+    height: 100%;
+
+    transition: width 0.2s ease-in-out;
+}

@@ -5,9 +5,24 @@ import {PublishedVoteItem} from "../components/PublishedVoteItem";
 export function ProfilePage({onOpenProfile, onCreateVote, onLogout} : {onOpenProfile: () => void, onCreateVote: () => void, onLogout: () => void}) {
     const name = "тест";
     const [publishedVotes, setPublishedVotes] = useState([
-        {title: "Сколько?", description: "Тестовое описание первого голосования"},
-        {title: "Какой цвет лучше?", description: "Тестовое описание второго голосования"},
-        {title: "Куда пойдём?", description: "Тестовое описание третьего голосования"},
+        {
+            title: "Сколько?",
+            description: "Тестовое описание первого голосования",
+            answers: ["Первый вариант", "Второй вариант", "Третий вариант"],
+            votes: [7, 3, 2],
+        },
+        {
+            title: "Какой цвет лучше?",
+            description: "Тестовое описание второго голосования",
+            answers: ["Красный", "Синий"],
+            votes: [12, 8],
+        },
+        {
+            title: "Куда пойдём?",
+            description: "Тестовое описание третьего голосования",
+            answers: ["В кино", "В парк", "Домой"],
+            votes: [0, 0, 0],
+        },
     ]);
 
     const deleteVote = (id: number) => {
@@ -40,6 +55,8 @@ export function ProfilePage({onOpenProfile, onCreateVote, onLogout} : {onOpenPro
                             id={index}
                             title={vote.title}
                             description={vote.description}
+                            answers={vote.answers}
+                            votes={vote.votes}
                             onDelete={deleteVote}/>
                     ))}
                 </div>

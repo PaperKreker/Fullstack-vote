@@ -43,7 +43,7 @@ export function CreateForm() {
 
 
     return (
-        <div style={{padding: '0 15px 15px 15px'}} className="roundedFrame">
+        <div className="roundedFrame">
             <h2>Создание голосования</h2>
             <form onSubmit={handleSubmit}>
                 <InputFieldWithLabel

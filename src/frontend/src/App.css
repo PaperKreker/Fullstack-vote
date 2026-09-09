@@ -3,6 +3,7 @@
 @import "styles/Radio.css";
 @import "styles/Input.css";
 @import "styles/Modal.css";
+@import "styles/ResultBar.css";
 
 @font-face {
   font-family: 'Oswald-Regular';
@@ -90,6 +91,8 @@ form {
   border-style: solid;
   border-width: calc(var(--border-width) * 2);
   border-radius: 10px;
+
+  padding: 0 15px 15px 15px;
 }
 
 .line {
