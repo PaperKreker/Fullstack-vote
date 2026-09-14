@@ -1,4 +1,4 @@
-import {SingleAnswerForm} from "../components/SingleAnswerForm";
+import {SingleAnswerForm} from "../features/SingleAnswerForm";
 import {useState} from "react";
 import {useParams} from "react-router-dom";
 

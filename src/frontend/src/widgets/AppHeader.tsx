@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {AuthModal} from "./AuthModal";
-import {RegisterModal} from "./RegisterModal";
+import {AuthModal} from "../features/AuthModal";
+import {RegisterModal} from "../features/RegisterModal";
 
 type ModalType = "auth" | "register" | null;
 

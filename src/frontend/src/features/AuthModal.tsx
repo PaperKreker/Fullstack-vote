@@ -1,6 +1,6 @@
-import {InputFieldWithLabel} from "./InputFieldWithLabel";
+import {InputFieldWithLabel} from "../shared/InputFieldWithLabel";
 import {useState} from "react";
-import {Modal} from "./Modal";
+import {Modal} from "../shared/Modal";
 
 export function AuthModal(
     {onClose, onSwitchToRegister, onLogin} :

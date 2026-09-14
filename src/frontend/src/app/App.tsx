@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import './App.css';
+import '../styles/App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {AppHeader} from "./components/AppHeader";
-import {HomePage} from './pages/HomePage';
-import {VotePage} from './pages/VotePage';
-import {CreateVotePage} from "./pages/CreateVotePage";
-import {ProfilePage} from "./pages/ProfilePage";
+import {AppHeader} from "../widgets/AppHeader";
+import {HomePage} from '../pages/HomePage';
+import {VotePage} from '../pages/VotePage';
+import {CreateVotePage} from "../pages/CreateVotePage";
+import {ProfilePage} from "../pages/ProfilePage";
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState<{name: string} | null>(null);

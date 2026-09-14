@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import {InputFieldWithLabel} from "./InputFieldWithLabel";
-import {EditSingleAnswerItem} from "./EditSingleAnswerItem";
+import {InputFieldWithLabel} from "../shared/InputFieldWithLabel";
+import {EditSingleAnswerItem} from "../entities/EditSingleAnswerItem";
 
 export function CreateForm() {
     const [title, setTitle] = useState("");

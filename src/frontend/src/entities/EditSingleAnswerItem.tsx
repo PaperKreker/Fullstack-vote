@@ -1,4 +1,4 @@
-import {CloseButton} from "./CloseButton";
+import {CloseButton} from "../shared/CloseButton";
 import React from "react";
 
 export function EditSingleAnswerItem(

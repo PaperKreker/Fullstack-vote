@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {PublishedVoteItem} from "../components/PublishedVoteItem";
+import {PublishedVoteCard} from "../features/PublishedVoteCard";
 
 export function ProfilePage(
     {authenticatedUser, onLogout} :
@@ -66,7 +66,7 @@ export function ProfilePage(
                 <div className={"line"}/>
                 <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
                     {publishedVotes.map((vote, index) => (
-                        <PublishedVoteItem
+                        <PublishedVoteCard
                             key={index}
                             id={index}
                             title={vote.title}

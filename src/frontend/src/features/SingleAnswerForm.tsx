@@ -1,4 +1,4 @@
-import {SingleAnswerItem} from "./SingleAnswerItem";
+import {SingleAnswerItem} from "../entities/SingleAnswerItem";
 import React from "react";
 
 export function SingleAnswerForm(

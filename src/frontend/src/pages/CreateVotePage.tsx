@@ -1,4 +1,4 @@
-import {CreateForm} from "../components/CreateForm";
+import {CreateForm} from "../features/CreateForm";
 
 export function CreateVotePage(
     {authenticatedUser} :

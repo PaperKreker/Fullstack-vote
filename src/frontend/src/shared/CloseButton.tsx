@@ -1,4 +1,4 @@
-import crossImage from "../images/cross.svg";
+import crossImage from "./images/cross.svg";
 
 export function CloseButton({onClick}: {onClick?: () => void}) {
     return (

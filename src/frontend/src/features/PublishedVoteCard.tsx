@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
-import {CloseButton} from "./CloseButton";
-import {VoteResultItem} from "./VoteResultItem";
+import {CloseButton} from "../shared/CloseButton";
+import {VoteResultItem} from "../entities/VoteResultItem";
 
-export function PublishedVoteItem(
+export function PublishedVoteCard(
     {id, title, description, answers, votes, onDelete} :
     {id: number, title: string, description: string, answers: string[], votes: number[], onDelete: (id: number) => void}) {
     const navigate = useNavigate();
