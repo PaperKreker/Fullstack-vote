@@ -4,8 +4,7 @@ from pydantic import BaseModel
 from db.Proxy import DBProxy
 
 app = FastAPI()
-#db_proxy = DBProxy()
-db_proxy = None
+db_proxy = DBProxy()
 
 @app.get("/")
 async def root():

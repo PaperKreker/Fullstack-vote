@@ -12,7 +12,8 @@ from db.Users import ProxyUser
 
 class DBEnv:
     def __init__(self):
-        load_dotenv()
+        if not(load_dotenv()):
+            raise ValueError("No .env file found")
         self.USER = os.getenv("DB_USER")
         self.PASSWORD = os.getenv("DB_PASSWORD")
         self.HOST = os.getenv("DB_HOST")
