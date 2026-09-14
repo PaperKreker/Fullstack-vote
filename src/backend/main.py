@@ -4,7 +4,8 @@ from pydantic import BaseModel
 from db.Proxy import DBProxy
 
 app = FastAPI()
-db_proxy = DBProxy()
+#db_proxy = DBProxy()
+db_proxy = None
 
 @app.get("/")
 async def root():
@@ -28,6 +29,6 @@ async def delete_user(user_delete: UserDelete):
     return db_proxy.users.delete_user(user_delete.id)
 
 @app.get("/poll/")
-async def get_user(id: int):
-    return db_proxy.users.get_user(id)
+async def get_poll(id: int, user_id: int):
+    return db_proxy.polls.get_poll_for_user(id, user_id)
 

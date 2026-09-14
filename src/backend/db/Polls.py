@@ -16,7 +16,7 @@ class ProxyPoll:
             print("Ошибка: В голосовании должно быть как минимум 2 варианта ответа.")
             return None
 
-        session = self.parent.SessionLocal()
+        session = self.parent.session_local()
         try:
             new_poll = Poll(
                 author_id=author_id,
@@ -85,6 +85,56 @@ class ProxyPoll:
             session.close()
 
 
+    def get_poll_ids_for_author(self, author_id: int) -> List[int] | None:
+        session = self.parent.session_local()
+        try:
+            stmt = select(Poll.id).where(Poll.author_id == author_id)
+            poll_ids = session.execute(stmt).scalars().all()
+
+            return list(poll_ids)
+
+        except Exception as e:
+            print(f"Ошибка при получении списка голосований пользователя {author_id}: {e}")
+            return None
+        finally:
+            session.close()
+
+
+    def get_polls_for_author(self, author_id: int) -> List[dict] | None:
+        session = self.parent.session_local()
+        try:
+            stmt = (
+                select(Poll)
+                .where(Poll.author_id == author_id)
+                .options(selectinload(Poll.options))
+            )
+            polls = session.execute(stmt).scalars().all()
+
+            return [
+                {
+                    "id": poll.id,
+                    "title": poll.title,
+                    "description": poll.description,
+                    "total_votes": sum(opt.votes_count for opt in poll.options),
+                    "results": [
+                        {
+                            "id": opt.id,
+                            "option_text": opt.option_text,
+                            "votes": opt.votes_count,
+                        }
+                        for opt in poll.options
+                    ]
+                }
+                for poll in polls
+            ]
+
+        except Exception as e:
+            print(f"Ошибка при получении голосований пользователя {author_id}: {e}")
+            return None
+        finally:
+            session.close()
+
+
     def get_poll_for_user(self, poll_id: int, user_id: int) -> dict | None:
         session = self.parent.session_local()
         try:
@@ -134,7 +184,7 @@ class ProxyPoll:
 
 
     def delete_poll(self, poll_id: int, author_id: int) -> bool:
-        session = self.parent.SessionLocal()
+        session = self.parent.session_local()
         try:
             stmt = select(Poll).where(and_(Poll.id == poll_id, Poll.author_id == author_id))
             poll = session.execute(stmt).scalar_one_or_none()
@@ -157,7 +207,7 @@ class ProxyPoll:
 
 
     def vote_in_poll(self, user_id: int, poll_id: int, option_id: int) -> bool:
-        session = self.parent.SessionLocal()
+        session = self.parent.session_local()
         try:
             participation_stmt = select(UserPollParticipation).where(
                 and_(
