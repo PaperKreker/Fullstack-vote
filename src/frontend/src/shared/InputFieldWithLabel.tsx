@@ -1,16 +1,20 @@
 import React from "react";
 
 export function InputFieldWithLabel(
-    {label, inputType, placeholder = "...", value, onChange} :
-    {label: string, inputType: string, placeholder?: string, value: string, onChange: (value: string) => void} ) {
+    {label, inputType, placeholder = "...", value, onChange, error} :
+    {label: string, inputType: string, placeholder?: string, value: string, onChange: (value: string) => void, error?: string} ) {
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
-            <label style={{margin: "0", width: '75px'}}>{label}</label>
-            <input
-                type={inputType}
-                placeholder={placeholder}
-                value={value}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}/>
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
+                <label style={{margin: "0", width: '75px'}}>{label}</label>
+                <input
+                    className={error ? "inputError" : ""}
+                    type={inputType}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}/>
+            </div>
+            {error && <p className={"errorText"}>{error}</p>}
         </div>
     )
 }

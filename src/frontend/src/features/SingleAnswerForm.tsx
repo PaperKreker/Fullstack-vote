@@ -1,12 +1,26 @@
 import {SingleAnswerItem} from "../entities/SingleAnswerItem";
-import React from "react";
+import React, {useState} from "react";
+import {checkLogin, checkPassword, checkPoll} from "../shared/Validation";
 
 export function SingleAnswerForm(
     {title, description, answers, isVoted} :
     {title: string, description: string, answers: string[], isVoted: boolean}) {
+    const [selected, setSelected] = useState(-1);
+    const [errors, setErrors] = useState({answer: ""});
+
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("SUBMIT!");
+
+        const newErrors = {
+            answer: checkPoll(isVoted, selected),
+        };
+        setErrors(newErrors);
+
+        if (newErrors.answer) {
+            return;
+        }
+
+        console.log(JSON.stringify(selected, null, 2));
     };
 
     if (isVoted) {
@@ -26,8 +40,13 @@ export function SingleAnswerForm(
             <div className={"line"}></div>
             <form onSubmit={handleSubmit}>
                 {answers.map((answer, index) => (
-                    <SingleAnswerItem key={index} text={answer}/>
+                    <SingleAnswerItem
+                        key={index}
+                        id={index}
+                        text={answer}
+                        onChangeAnswer={setSelected}/>
                 ))}
+                {errors.answer && <p className={"errorText"}>{errors.answer}</p>}
                 <button className={"success"}>Подтвердить</button>
             </form>
         </div>

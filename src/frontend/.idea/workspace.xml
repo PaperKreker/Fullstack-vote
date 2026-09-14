@@ -5,38 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="399d568f-606b-4d94-bc61-5627567681ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/shared/Validation.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Oswald/Oswald-Bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/fonts/Oswald/Oswald-Bold.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Oswald/Oswald-ExtraLight.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/fonts/Oswald/Oswald-ExtraLight.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Oswald/Oswald-Light.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/fonts/Oswald/Oswald-Light.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Oswald/Oswald-Medium.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/fonts/Oswald/Oswald-Medium.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Oswald/Oswald-Regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/fonts/Oswald/Oswald-Regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/Oswald/Oswald-SemiBold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/fonts/Oswald/Oswald-SemiBold.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AppHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/AppHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/AuthModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CloseButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/CloseButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreateForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/CreateForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditSingleAnswerItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/EditSingleAnswerItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputFieldWithLabel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/InputFieldWithLabel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/Modal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PublishedVoteItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/PublishedVoteCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RegisterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/RegisterModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SingleAnswerForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/SingleAnswerForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SingleAnswerItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/SingleAnswerItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VoteResultItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/VoteResultItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/cross.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/images/cross.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/dot.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/images/dot.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/tick.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/images/tick.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/CreateVotePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CreateVotePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ProfilePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ProfilePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/VotePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/VotePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Checkbox.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Checkbox.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Radio.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Radio.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/EditSingleAnswerItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/EditSingleAnswerItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/SingleAnswerItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/SingleAnswerItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/AuthModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/AuthModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/CreateForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/CreateForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/RegisterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/RegisterModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/SingleAnswerForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/SingleAnswerForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/CloseButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/CloseButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/InputFieldWithLabel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/InputFieldWithLabel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/Input.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Input.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -131,11 +111,22 @@
       <workItem from="1788538215111" duration="12216000" />
       <workItem from="1788596196474" duration="8461000" />
       <workItem from="1788776962105" duration="14195000" />
-      <workItem from="1789370576843" duration="2460000" />
+      <workItem from="1789370576843" duration="9845000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

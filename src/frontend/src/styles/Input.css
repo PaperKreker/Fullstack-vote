@@ -19,10 +19,18 @@ input[type="password"]{
 input[type="text"]:hover,
 input[type="password"]:hover {
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px var(--dark);
+    box-shadow: 4px 4px;
 }
 input[type="text"]:active,
 input[type="password"]:active  {
     transform: translate(1px, 1px);
-    box-shadow: 2px 2px var(--dark);
+    box-shadow: 2px 2px;
+}
+
+input.inputError {
+    border-color: var(--error);
+}
+.errorText {
+    font-size: 16px;
+    color: var(--error);
 }

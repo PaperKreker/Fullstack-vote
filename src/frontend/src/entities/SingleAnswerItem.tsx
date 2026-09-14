@@ -1,7 +1,9 @@
-export function SingleAnswerItem( {text}: {text: string} ) {
+export function SingleAnswerItem(
+    {text, id, onChangeAnswer}:
+    {text: string, id: number, onChangeAnswer: (id: number) => void} ) {
     return (
         <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-            <input type="radio" name="1"/>
+            <input onChange={() => (onChangeAnswer(id))} type="radio" name="answer"/>
             <label>{ text }</label>
         </div>
     )
