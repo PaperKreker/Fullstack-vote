@@ -5,17 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="399d568f-606b-4d94-bc61-5627567681ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/Authorization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/dto/UserDTO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/ApiRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/Token.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/db/Errors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/Authorization.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/Authorization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/db/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db/Models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/db/Polls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db/Polls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/db/Proxy.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db/Proxy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/db/Users.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db/Users.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/VoteResultItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/PollResultItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/AuthModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/AuthModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/CreateForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/CreateForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/PublishedVoteCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/PublishedPollCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/RegisterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/RegisterModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/SingleAnswerForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/SingleAnswerForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CreateVotePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CreatePollPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ProfilePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ProfilePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/VotePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PollPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/ApiRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/ApiRequest.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +64,7 @@
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
     "npm.npm start.executor": "Run",
-    "ts.external.directory.path": "D:\\Git\\Fullstack-vote\\src\\frontend\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "/Users/olegpodvalov/Documents/Уник/Full-stack/Fullstack-vote/src/frontend/node_modules/typescript/lib",
     "two.files.diff.last.used.file": "D:/Git/Fullstack-vote/src/frontend/src/components/AuthModal.tsx",
     "vue.rearranger.settings.migration": "true"
   }
@@ -95,7 +103,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-WS-243.24978.60" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.25659.40" />
       </set>
     </attachedChunks>
   </component>
@@ -111,6 +119,7 @@
       <workItem from="1788596196474" duration="8461000" />
       <workItem from="1788776962105" duration="14195000" />
       <workItem from="1789370576843" duration="12029000" />
+      <workItem from="1789457044782" duration="4543000" />
     </task>
     <servers />
   </component>

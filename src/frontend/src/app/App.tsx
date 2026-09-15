@@ -4,16 +4,18 @@ import '../styles/App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {AppHeader} from "../widgets/AppHeader";
 import {HomePage} from '../pages/HomePage';
-import {VotePage} from '../pages/VotePage';
-import {CreateVotePage} from "../pages/CreateVotePage";
+import {PollPage} from '../pages/PollPage';
+import {CreatePollPage} from "../pages/CreatePollPage";
 import {ProfilePage} from "../pages/ProfilePage";
-import {getMe} from "../shared/ApiRequest";
+import {getMe, setOnSessionExpired} from "../shared/ApiRequest";
 import {deleteToken} from "../shared/Token";
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState<{name: string} | null>(null);
 
   useEffect(() => {
+      setOnSessionExpired(() => setAuthenticatedUser(null));
+
       getMe().then(user => {
           if (user) {
               setAuthenticatedUser({name: user.username});
@@ -36,11 +38,11 @@ function App() {
             <AppHeader authenticatedUser={authenticatedUser} onLogin={login}/>
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
-                <Route path="/vote/:id" element={<VotePage/>}/>
+                <Route path="/poll/:id" element={<PollPage/>}/>
                 <Route path="/profile" element={
                     <ProfilePage authenticatedUser={authenticatedUser} onLogout={logout}/>}/>
                 <Route path="/create" element={
-                    <CreateVotePage authenticatedUser={authenticatedUser}/>}/>
+                    <CreatePollPage authenticatedUser={authenticatedUser}/>}/>
             </Routes>
         </BrowserRouter>
     </div>

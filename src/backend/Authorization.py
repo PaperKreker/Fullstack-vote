@@ -10,6 +10,8 @@ from jwt.exceptions import InvalidTokenError
 
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
+if SECRET_KEY is None or SECRET_KEY == "":
+    raise ValueError("No secret key found")
 ALGORITHM = "HS256"
 TOKEN_EXPIRE_MINUTES = 60
 

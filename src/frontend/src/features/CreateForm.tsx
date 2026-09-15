@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import {InputFieldWithLabel} from "../shared/InputFieldWithLabel";
 import {EditSingleAnswerItem} from "../entities/EditSingleAnswerItem";
 import {
@@ -7,18 +8,21 @@ import {
     checkEachAnswer,
     checkTitle
 } from "../shared/Validation";
+import {createPoll} from "../shared/ApiRequest";
 
 export function CreateForm() {
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [answers, setAnswers ]= useState(["1 вариант", "2 вариант"]);
-    const [errors, setErrors] = useState({title: "", answers: "", eachAnswer: [""]});
+    const [errors, setErrors] = useState({title: "", answers: "", eachAnswer: [""], createError: ""});
 
     const clearAnswerErrors = () => {
         const newErrors = {
             title: errors.title,
             answers: "",
             eachAnswer: [""],
+            createError: errors.createError,
         };
         setErrors(newErrors);
     }
@@ -26,11 +30,16 @@ export function CreateForm() {
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        tryCreatePoll().then();
+    };
+
+    async function tryCreatePoll() {
         const { result: eachAnswer, hasError: hasErrorInAnswers } = checkEachAnswer(answers);
         const newErrors = {
             title: checkTitle(title),
             answers: checkAnswers(answers),
             eachAnswer: eachAnswer,
+            createError: "",
         };
         setErrors(newErrors);
 
@@ -38,13 +47,18 @@ export function CreateForm() {
             return;
         }
 
-        const poll = {
-            title,
-            description,
-            answers,
-        };
-        console.log(JSON.stringify(poll, null, 2));
-    };
+        const result = await createPoll(title, description, answers);
+        if (result.success) {
+            navigate("/profile");
+        }
+        else {
+            setErrors({
+                title: newErrors.title,
+                answers: newErrors.answers,
+                eachAnswer: newErrors.eachAnswer,
+                createError: result.error});
+        }
+    }
 
     const createAnswer = () => {
         setAnswers(prevAnswers => {
@@ -110,6 +124,7 @@ export function CreateForm() {
                 <div className={"line"}/>
 
                 <button className={"success"}>Создать</button>
+                {errors.createError && <p className={"errorText"}>{errors.createError}</p>}
             </form>
         </div>
     )

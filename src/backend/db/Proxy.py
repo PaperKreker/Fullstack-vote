@@ -43,13 +43,9 @@ class DBProxy():
         TARGET_DATABASE_URL = f"postgresql+psycopg2://{db_env.USER}:{db_env.PASSWORD}@{db_env.HOST}:{db_env.PORT}/{db_env.NAME}"
         engine = create_engine(TARGET_DATABASE_URL)
 
-        try:
-            with engine.connect() as connection:
-                print(f"Успешное подключение к {db_env.NAME}!")
-                return engine
-        except Exception as e:
-            print(f"Ошибка подключения: {e}")
-        return None
+        with engine.connect() as connection:
+            print(f"Успешное подключение к {db_env.NAME}!")
+            return engine
 
 
     def __init__(self):

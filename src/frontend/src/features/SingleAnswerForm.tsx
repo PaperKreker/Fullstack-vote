@@ -1,34 +1,43 @@
 import {SingleAnswerItem} from "../entities/SingleAnswerItem";
 import React, {useState} from "react";
-import {checkLogin, checkPassword, checkPoll} from "../shared/Validation";
+import {checkPoll} from "../shared/Validation";
+import {voteInPoll} from "../shared/ApiRequest";
 
 export function SingleAnswerForm(
-    {title, description, answers, isVoted} :
-    {title: string, description: string, answers: string[], isVoted: boolean}) {
+    {pollId, title, description, answers, isVoted, onVoted} :
+    {pollId: number, title: string, description: string, answers: {id: number, text: string}[], isVoted: boolean, onVoted: () => void}) {
     const [selected, setSelected] = useState(-1);
     const [errors, setErrors] = useState({answer: ""});
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const newErrors = {
-            answer: checkPoll(isVoted, selected),
-        };
-        setErrors(newErrors);
+        tryVote().then();
+    };
 
-        if (newErrors.answer) {
+    async function tryVote() {
+        const answerError = checkPoll(isVoted, selected);
+        setErrors({answer: answerError});
+
+        if (answerError) {
             return;
         }
 
-        console.log(JSON.stringify(selected, null, 2));
-    };
+        const result = await voteInPoll(pollId, selected);
+        if (result.success) {
+            onVoted();
+        }
+        else {
+            setErrors({answer: result.error});
+        }
+    }
 
     if (isVoted) {
         return (
             <div className="roundedFrame">
                 <h2>{title}</h2>
                 <div className={"line"}></div>
-                <p><b>Ваш голос отправлен</b></p>
+                <p>Ваш голос отправлен</p>
             </div>
         )
     }
@@ -39,11 +48,11 @@ export function SingleAnswerForm(
             <p>{description}</p>
             <div className={"line"}></div>
             <form onSubmit={handleSubmit}>
-                {answers.map((answer, index) => (
+                {answers.map(answer => (
                     <SingleAnswerItem
-                        key={index}
-                        id={index}
-                        text={answer}
+                        key={answer.id}
+                        id={answer.id}
+                        text={answer.text}
                         onChangeAnswer={setSelected}/>
                 ))}
                 {errors.answer && <p className={"errorText"}>{errors.answer}</p>}

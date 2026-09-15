@@ -26,12 +26,12 @@ export function AuthModal(
             return;
         }
 
-        const loginSuccessful = await login(username, password);
-        if (loginSuccessful) {
+        const result = await login(username, password);
+        if (result.success) {
             onLogin(username);
         }
         else {
-            setErrors({username: usernameError, password: passwordError, loginError: "Данные пользователя неверны"});
+            setErrors({username: usernameError, password: passwordError, loginError: result.error});
         }
     }
 
@@ -56,7 +56,7 @@ export function AuthModal(
                     error={errors?.password}/>
                 <div style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
                     <button className={"success"} type={"submit"}>Войти</button>
-                    <button onClick={onSwitchToRegister}>Зарегистрироваться</button>
+                    <button type={"button"} onClick={onSwitchToRegister}>Зарегистрироваться</button>
                 </div>
                 {errors.loginError && <p className={"errorText"}>{errors.loginError}</p>}
             </form>

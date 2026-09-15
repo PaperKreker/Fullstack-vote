@@ -3,6 +3,7 @@ from typing import List
 from sqlalchemy import select, and_
 from sqlalchemy.orm import selectinload
 
+from db.Errors import NotFoundError, ValidationError, AccessDeniedError
 from db.Models import Poll, VoteOption, UserPollParticipation
 
 
@@ -11,10 +12,9 @@ class ProxyPoll:
         self.parent = parent
 
 
-    def create_poll(self, author_id: int, title: str, description: str | None, option_texts: List[str]) -> int | None:
+    def create_poll(self, author_id: int, title: str, description: str | None, option_texts: List[str]) -> int:
         if not option_texts or len(option_texts) < 2:
-            print("Ошибка: В голосовании должно быть как минимум 2 варианта ответа.")
-            return None
+            raise ValidationError("В голосовании должно быть как минимум 2 варианта ответа.")
 
         session = self.parent.session_local()
         try:
@@ -32,18 +32,16 @@ class ProxyPoll:
             session.commit()
             session.refresh(new_poll)
 
-            print(f"Голосование '{title}' успешно создано с ID {new_poll.id}!")
             return new_poll.id
 
-        except Exception as e:
+        except ValueError as e:
             session.rollback()
-            print(f"Ошибка при создании голосования: {e}")
-            return None
+            raise ValidationError(str(e))
         finally:
             session.close()
 
 
-    def get_poll_for_author(self, poll_id: int, user_id: int) -> dict | None:
+    def get_poll_for_author(self, poll_id: int, user_id: int) -> dict:
         session = self.parent.session_local()
         try:
             stmt = (
@@ -54,12 +52,10 @@ class ProxyPoll:
             poll = session.execute(stmt).scalar_one_or_none()
 
             if not poll:
-                print(f"Голосование с ID {poll_id} не найдено.")
-                return None
+                raise NotFoundError(f"Голосование с ID {poll_id} не найдено.")
 
             if poll.author_id != user_id:
-                print(f"Доступ запрещен: Пользователь {user_id} не является автором голосования {poll_id}.")
-                return None
+                raise AccessDeniedError(f"Пользователь {user_id} не является автором голосования {poll_id}.")
 
             total_votes = sum(opt.votes_count for opt in poll.options)
 
@@ -78,14 +74,11 @@ class ProxyPoll:
                 ]
             }
 
-        except Exception as e:
-            print(f"Ошибка при получении результатов: {e}")
-            return None
         finally:
             session.close()
 
 
-    def get_poll_ids_for_author(self, author_id: int) -> List[int] | None:
+    def get_poll_ids_for_author(self, author_id: int) -> List[int]:
         session = self.parent.session_local()
         try:
             stmt = select(Poll.id).where(Poll.author_id == author_id)
@@ -93,14 +86,11 @@ class ProxyPoll:
 
             return list(poll_ids)
 
-        except Exception as e:
-            print(f"Ошибка при получении списка голосований пользователя {author_id}: {e}")
-            return None
         finally:
             session.close()
 
 
-    def get_polls_for_author(self, author_id: int) -> List[dict] | None:
+    def get_polls_for_author(self, author_id: int) -> List[dict]:
         session = self.parent.session_local()
         try:
             stmt = (
@@ -128,14 +118,11 @@ class ProxyPoll:
                 for poll in polls
             ]
 
-        except Exception as e:
-            print(f"Ошибка при получении голосований пользователя {author_id}: {e}")
-            return None
         finally:
             session.close()
 
 
-    def get_poll_for_user(self, poll_id: int, user_id: int) -> dict | None:
+    def get_poll_for_user(self, poll_id: int, user_id: int) -> dict:
         session = self.parent.session_local()
         try:
             participation_stmt = select(UserPollParticipation).where(
@@ -146,10 +133,6 @@ class ProxyPoll:
             )
             already_voted = session.execute(participation_stmt).scalar_one_or_none()
 
-            if already_voted:
-                print(f"Доступ запрещен: Пользователь {user_id} уже принял участие в голосовании {poll_id}.")
-                return None
-
             poll_stmt = (
                 select(Poll)
                 .where(Poll.id == poll_id)
@@ -158,14 +141,14 @@ class ProxyPoll:
             poll = session.execute(poll_stmt).scalar_one_or_none()
 
             if not poll:
-                print(f"Голосование с ID {poll_id} не найдено.")
-                return None
+                raise NotFoundError(f"Голосование с ID {poll_id} не найдено.")
 
             poll_data = {
                 "id": poll.id,
                 "title": poll.title,
                 "description": poll.description,
                 "author_id": poll.author_id,
+                "is_voted": already_voted is not None,
                 "options": [
                     {
                         "id": opt.id,
@@ -176,9 +159,6 @@ class ProxyPoll:
             }
             return poll_data
 
-        except Exception as e:
-            print(f"Ошибка при получении голосования: {e}")
-            return None
         finally:
             session.close()
 
@@ -186,22 +166,19 @@ class ProxyPoll:
     def delete_poll(self, poll_id: int, author_id: int) -> bool:
         session = self.parent.session_local()
         try:
-            stmt = select(Poll).where(and_(Poll.id == poll_id, Poll.author_id == author_id))
+            stmt = select(Poll).where(Poll.id == poll_id)
             poll = session.execute(stmt).scalar_one_or_none()
 
             if not poll:
-                print(f"Ошибка: Голосование с ID {poll_id} не найдено или вы не являетесь его автором.")
-                return False
+                raise NotFoundError(f"Голосование с ID {poll_id} не найдено.")
+
+            if poll.author_id != author_id:
+                raise AccessDeniedError(f"Пользователь {author_id} не является автором голосования {poll_id}.")
 
             session.delete(poll)
             session.commit()
-            print(f"Голосование с ID {poll_id} успешно удалено.")
             return True
 
-        except Exception as e:
-            session.rollback()
-            print(f"Ошибка при удалении голосования: {e}")
-            return False
         finally:
             session.close()
 
@@ -218,8 +195,7 @@ class ProxyPoll:
             already_voted = session.execute(participation_stmt).scalar_one_or_none()
 
             if already_voted:
-                print(f"Ошибка: Пользователь {user_id} уже принимал участие в голосовании {poll_id}!")
-                return False
+                raise AccessDeniedError("Вы уже проголосовали.")
 
             option_stmt = select(VoteOption).where(
                 and_(
@@ -230,8 +206,7 @@ class ProxyPoll:
             option = session.execute(option_stmt).scalar_one_or_none()
 
             if not option:
-                print(f"Ошибка: Вариант ответа {option_id} не найден в голосовании {poll_id}.")
-                return False
+                raise NotFoundError(f"Вариант ответа {option_id} не найден в голосовании {poll_id}.")
 
             participation = UserPollParticipation(user_id=user_id, poll_id=poll_id)
             session.add(participation)
@@ -239,12 +214,7 @@ class ProxyPoll:
             option.votes_count += 1
 
             session.commit()
-            print(f"Голос пользователя {user_id} успешно учтен!")
             return True
 
-        except Exception as e:
-            session.rollback()
-            print(f"Ошибка при попытке проголосовать: {e}")
-            return False
         finally:
             session.close()

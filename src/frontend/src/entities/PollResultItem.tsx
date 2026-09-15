@@ -1,4 +1,4 @@
-export function VoteResultItem({text, votes, allVotes}: {text: string, votes: number, allVotes: number}) {
+export function PollResultItem({text, votes, allVotes}: {text: string, votes: number, allVotes: number}) {
     let percent = 0;
     if (allVotes > 0) {
         percent = Math.round(votes / allVotes * 100);

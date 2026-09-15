@@ -21,16 +21,10 @@ class Poll(Base):
     options: Mapped[List["VoteOption"]] = relationship(back_populates="poll", cascade="all, delete-orphan")
 
     @validates("title")
-    def validate_option_text(self, key, title):
+    def validate_title(self, key, title):
         if not title or len(title) == 0:
             raise ValueError("Заголовок не должен быть пустым")
         return title
-
-    @validates("options")
-    def validate_option_text(self, key, options):
-        if not options or len(options) <= 1:
-            raise ValueError("Должно быть больше 1 варианта ответа")
-        return options
 
 
 class User(Base):
@@ -40,7 +34,10 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    created_polls: Mapped[List["Poll"]] = relationship(back_populates="author")
+    created_polls: Mapped[List["Poll"]] = relationship(
+        back_populates="author",
+        cascade="all, delete-orphan",
+        passive_deletes=True)
 
     @validates("username")
     def validate_username(self, key, username):

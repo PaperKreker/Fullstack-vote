@@ -1,37 +1,60 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {PublishedVoteCard} from "../features/PublishedVoteCard";
+import {PublishedPollCard} from "../features/PublishedPollCard";
+import {deletePoll, getMyPolls} from "../shared/ApiRequest";
+
+type ApiPollWithResults = {
+    id: number,
+    title: string,
+    description: string | null,
+    total_votes: number,
+    results: {id: number, option_text: string, votes: number}[],
+}
+
+type PublishedPoll = {
+    id: number,
+    title: string,
+    description: string,
+    answers: string[],
+    votes: number[],
+}
 
 export function ProfilePage(
     {authenticatedUser, onLogout} :
     {authenticatedUser: {name: string} | null, onLogout: () => void}) {
     const navigate = useNavigate();
-    const [publishedVotes, setPublishedVotes] = useState([
-        {
-            title: "Сколько?",
-            description: "Тестовое описание первого голосования",
-            answers: ["Первый вариант", "Второй вариант", "Третий вариант"],
-            votes: [7, 3, 2],
-        },
-        {
-            title: "Какой цвет лучше?",
-            description: "Тестовое описание второго голосования",
-            answers: ["Красный", "Синий"],
-            votes: [12, 8],
-        },
-        {
-            title: "Куда пойдём?",
-            description: "Тестовое описание третьего голосования",
-            answers: ["В кино", "В парк", "Домой"],
-            votes: [0, 0, 0],
-        },
-    ]);
+    const [publishedPolls, setPublishedPolls] = useState<PublishedPoll[]>([]);
+    const [deleteError, setDeleteError] = useState("");
 
-    const deleteVote = (id: number) => {
-        setPublishedVotes(prevVotes => {
-            const nextVotes = [...prevVotes];
-            nextVotes.splice(id, 1);
-            return nextVotes;
+    useEffect(() => {
+        let ignore = false;
+
+        getMyPolls().then(polls => {
+            if (!ignore && polls) {
+                setPublishedPolls(polls.map((poll: ApiPollWithResults) => ({
+                    id: poll.id,
+                    title: poll.title,
+                    description: poll.description ?? "",
+                    answers: poll.results.map(result => result.option_text),
+                    votes: poll.results.map(result => result.votes),
+                })));
+            }
+        });
+
+        return () => {
+            ignore = true;
+        };
+    }, []);
+
+    const handleDeletePoll = (id: number) => {
+        deletePoll(id).then(result => {
+            if (result.success) {
+                setDeleteError("");
+                setPublishedPolls(prevPolls => prevPolls.filter(poll => poll.id !== id));
+            }
+            else {
+                setDeleteError(result.error);
+            }
         });
     };
 
@@ -65,17 +88,18 @@ export function ProfilePage(
                 <button className={"success"} onClick={() => navigate("/create")}>Создать голосование</button>
                 <div className={"line"}/>
                 <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
-                    {publishedVotes.map((vote, index) => (
-                        <PublishedVoteCard
-                            key={index}
-                            id={index}
-                            title={vote.title}
-                            description={vote.description}
-                            answers={vote.answers}
-                            votes={vote.votes}
-                            onDelete={deleteVote}/>
+                    {publishedPolls.map(poll => (
+                        <PublishedPollCard
+                            key={poll.id}
+                            id={poll.id}
+                            title={poll.title}
+                            description={poll.description}
+                            answers={poll.answers}
+                            votes={poll.votes}
+                            onDelete={handleDeletePoll}/>
                     ))}
                 </div>
+                {deleteError && <p className={"errorText"}>{deleteError}</p>}
             </div>
         </>
     )

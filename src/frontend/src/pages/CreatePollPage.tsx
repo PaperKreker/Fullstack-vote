@@ -1,6 +1,6 @@
 import {CreateForm} from "../features/CreateForm";
 
-export function CreateVotePage(
+export function CreatePollPage(
     {authenticatedUser} :
     {authenticatedUser: {name: string} | null}) {
     if (!authenticatedUser) {

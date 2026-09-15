@@ -1,7 +1,8 @@
 import {InputFieldWithLabel} from "../shared/InputFieldWithLabel";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Modal} from "../shared/Modal";
 import {checkLogin, checkPassword, checkPasswordRepeat} from "../shared/Validation";
+import {register} from "../shared/ApiRequest";
 
 export function RegisterModal(
     {onClose, onSwitchToAuth, onLogin} :
@@ -9,26 +10,35 @@ export function RegisterModal(
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
-    const [errors, setErrors] = useState({login: "", password: "", passwordRepeat: ""});
+    const [errors, setErrors] = useState({login: "", password: "", passwordRepeat: "", registerError: ""});
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const newErrors = {
-            login: checkLogin(login),
-            password: checkPassword(password),
-            passwordRepeat: checkPasswordRepeat(password, repeatPassword),
-        };
-        setErrors(newErrors);
+        tryRegister().then();
+    }
 
-        if (newErrors.login || newErrors.password || newErrors.passwordRepeat) {
+    async function tryRegister() {
+        const loginError = checkLogin(login);
+        const passwordError = checkPassword(password);
+        const passwordRepeatError = checkPasswordRepeat(password, repeatPassword);
+        setErrors({login: loginError, password: passwordError, passwordRepeat: passwordRepeatError, registerError: ""});
+
+        if (loginError || passwordError || passwordRepeatError) {
             return;
         }
 
-        console.log(JSON.stringify({login, password}, null, 2));
-
-        //DEBUG
-        onLogin(login);
+        const result = await register(login, password);
+        if (result.success) {
+            onLogin(login);
+        }
+        else {
+            setErrors({
+                login: loginError,
+                password: passwordError,
+                passwordRepeat: passwordRepeatError,
+                registerError: result.error});
+        }
     }
 
     return (
@@ -59,8 +69,9 @@ export function RegisterModal(
                     error={errors.passwordRepeat}/>
                 <div style={{width: "100%", display: "flex", justifyContent: "space-between"}}>
                     <button className={"success"} type={"submit"}>Зарегистрироваться</button>
-                    <button onClick={onSwitchToAuth}>Войти</button>
+                    <button type={"button"} onClick={onSwitchToAuth}>Войти</button>
                 </div>
+                {errors.registerError && <p className={"errorText"}>{errors.registerError}</p>}
             </form>
         </Modal>);
 }

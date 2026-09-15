@@ -1,9 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 
 from Authorization import check_password, create_token, get_current_user_id
+from db.Errors import DBError, NotFoundError, AlreadyExistsError, ValidationError, AccessDeniedError
 from db.Proxy import DBProxy
 from dto.UserDTO import UserDTO
 
@@ -23,9 +25,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+ERROR_STATUSES = {
+    ValidationError: 400,
+    AccessDeniedError: 403,
+    NotFoundError: 404,
+    AlreadyExistsError: 409,
+}
+
+@app.exception_handler(DBError)
+async def db_error_handler(request: Request, error: DBError):
+    status_code = ERROR_STATUSES.get(type(error), 500)
+    return JSONResponse(status_code=status_code, content={"detail": str(error)})
+
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Welcome to the Votes API!"}
 
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
@@ -57,8 +71,8 @@ async def delete_me(user_id: int = Depends(get_current_user_id)):
     return db_proxy.users.delete_user(user_id)
 
 @app.get("/poll/")
-async def get_poll(id: int, user_id: int = Depends(get_current_user_id)):
-    return db_proxy.polls.get_poll_for_user(id, user_id)
+async def get_poll(poll_id: int, user_id: int = Depends(get_current_user_id)):
+    return db_proxy.polls.get_poll_for_user(poll_id, user_id)
 
 class PollAdd(BaseModel):
     title: str
@@ -69,10 +83,10 @@ async def add_poll(poll_add: PollAdd, user_id: int = Depends(get_current_user_id
     return db_proxy.polls.create_poll(user_id, poll_add.title, poll_add.description, poll_add.answers)
 
 class PollDelete(BaseModel):
-    id: int
+    poll_id: int
 @app.delete("/poll/")
 async def delete_poll(poll_delete: PollDelete, user_id: int = Depends(get_current_user_id)):
-    return db_proxy.polls.delete_poll(poll_delete.id, user_id)
+    return db_proxy.polls.delete_poll(poll_delete.poll_id, user_id)
 
 class PollVote(BaseModel):
     poll_id: int
