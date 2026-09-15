@@ -153,8 +153,8 @@ async def vote_in_poll(poll_vote: PollVote, user_id: int = Depends(get_current_u
     return db_proxy.polls.vote_in_poll(user_id, poll_vote.poll_id, poll_vote.option_id)
 
 @app.get("/my/poll/")
-async def get_my_poll(id: int, user_id: int = Depends(get_current_user_id)):
-    return db_proxy.polls.get_poll_for_author(id, user_id)
+async def get_my_poll(poll_id: int, user_id: int = Depends(get_current_user_id)):
+    return db_proxy.polls.get_poll_for_author(poll_id, user_id)
 
 @app.get("/my/polls/")
 async def get_my_polls(user_id: int = Depends(get_current_user_id)):
