@@ -1,11 +1,19 @@
-from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi import FastAPI, Depends, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 
-from Authorization import check_password, create_token, get_current_user_id
-from db.Errors import DBError, NotFoundError, AlreadyExistsError, ValidationError, AccessDeniedError
+from Authorization import (
+    COOKIE_SECURE,
+    REFRESH_EXPIRE_DAYS,
+    check_password,
+    create_access_token,
+    create_refresh_token,
+    get_current_user_id,
+    refresh_expires_at,
+)
+from db.Errors import DBError, NotFoundError, AlreadyExistsError, ValidationError, AccessDeniedError, AuthError
 from db.Proxy import DBProxy
 from dto.UserDTO import UserDTO
 
@@ -25,7 +33,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+REFRESH_COOKIE = "refresh_token"
+
 ERROR_STATUSES = {
+    AuthError: 401,
     ValidationError: 400,
     AccessDeniedError: 403,
     NotFoundError: 404,
@@ -37,18 +48,64 @@ async def db_error_handler(request: Request, error: DBError):
     status_code = ERROR_STATUSES.get(type(error), 500)
     return JSONResponse(status_code=status_code, content={"detail": str(error)})
 
+def set_refresh_cookie(response: Response, token: str):
+    response.set_cookie(
+        key=REFRESH_COOKIE,
+        value=token,
+        httponly=True,
+        secure=COOKIE_SECURE,
+        samesite="lax",
+        max_age=REFRESH_EXPIRE_DAYS * 24 * 60 * 60,
+        path="/")
+
+def start_session(response: Response, user_id: int) -> dict:
+    refresh_token = create_refresh_token()
+    db_proxy.refresh_tokens.add_token(user_id, refresh_token, refresh_expires_at())
+    set_refresh_cookie(response, refresh_token)
+
+    return {"access_token": create_access_token(user_id), "token_type": "bearer"}
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Votes API!"}
 
 @app.post("/token")
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depends()):
     user = db_proxy.users.get_user_by_username(form_data.username)
 
     if not user or not check_password(form_data.password, user["password"]):
         raise HTTPException(status_code=401, detail="Неверный логин или пароль")
 
-    return {"access_token": create_token(user["id"]), "token_type": "bearer"}
+    return start_session(response, user["id"])
+
+@app.post("/refresh")
+async def refresh_session(request: Request, response: Response):
+    refresh_token = request.cookies.get(REFRESH_COOKIE)
+
+    if not refresh_token:
+        raise HTTPException(status_code=401, detail="Нужно зайти в аккаунт")
+
+    try:
+        user_id = db_proxy.refresh_tokens.get_user_id(refresh_token)
+    except AuthError as error:
+        expired = JSONResponse(status_code=401, content={"detail": str(error)})
+        expired.delete_cookie(REFRESH_COOKIE, path="/")
+        return expired
+
+    db_proxy.refresh_tokens.delete_token(refresh_token)
+
+    return start_session(response, user_id)
+
+@app.post("/logout")
+async def logout(request: Request):
+    refresh_token = request.cookies.get(REFRESH_COOKIE)
+
+    if refresh_token:
+        db_proxy.refresh_tokens.delete_token(refresh_token)
+
+    result = JSONResponse(content={"success": True})
+    result.delete_cookie(REFRESH_COOKIE, path="/")
+    return result
 
 @app.get("/me/")
 async def get_me(user_id: int = Depends(get_current_user_id)):

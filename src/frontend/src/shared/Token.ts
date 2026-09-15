@@ -1,13 +1,13 @@
-const TOKEN_KEY = "token";
+let accessToken: string | null = null;
 
 export function saveToken(token: string) {
-    localStorage.setItem(TOKEN_KEY, token);
+    accessToken = token;
 }
 
 export function getToken() {
-    return localStorage.getItem(TOKEN_KEY);
+    return accessToken;
 }
 
 export function deleteToken() {
-    localStorage.removeItem(TOKEN_KEY);
+    accessToken = null;
 }

@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 from db import Models
 from db.Polls import ProxyPoll
+from db.RefreshTokens import ProxyRefreshToken
 from db.Users import ProxyUser
 
 
@@ -51,6 +52,7 @@ class DBProxy():
     def __init__(self):
         self.users = ProxyUser(self)
         self.polls = ProxyPoll(self)
+        self.refresh_tokens = ProxyRefreshToken(self)
 
         self.db_env = DBEnv()
         self.check_if_db_exists()

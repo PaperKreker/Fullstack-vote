@@ -1,7 +1,8 @@
+from datetime import datetime
 from typing import List
 
 import bcrypt
-from sqlalchemy import String, Text, ForeignKey
+from sqlalchemy import String, Text, ForeignKey, DateTime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, validates
 
 
@@ -38,6 +39,10 @@ class User(Base):
         back_populates="author",
         cascade="all, delete-orphan",
         passive_deletes=True)
+    refresh_tokens: Mapped[List["RefreshToken"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+        passive_deletes=True)
 
     @validates("username")
     def validate_username(self, key, username):
@@ -72,6 +77,17 @@ class VoteOption(Base):
         if not option_text or len(option_text) == 0:
             raise ValueError("Вариант голосования не должен быть пустым")
         return option_text
+
+
+class RefreshToken(Base):
+    __tablename__ = "refresh_tokens"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+    user: Mapped["User"] = relationship(back_populates="refresh_tokens")
 
 
 class UserPollParticipation(Base):

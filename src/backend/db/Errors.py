@@ -16,3 +16,7 @@ class ValidationError(DBError):
 
 class AccessDeniedError(DBError):
     pass
+
+
+class AuthError(DBError):
+    pass

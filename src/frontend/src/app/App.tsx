@@ -7,8 +7,7 @@ import {HomePage} from '../pages/HomePage';
 import {PollPage} from '../pages/PollPage';
 import {CreatePollPage} from "../pages/CreatePollPage";
 import {ProfilePage} from "../pages/ProfilePage";
-import {getMe, setOnSessionExpired} from "../shared/ApiRequest";
-import {deleteToken} from "../shared/Token";
+import {logout, restoreSession, setOnSessionExpired} from "../shared/ApiRequest";
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState<{name: string} | null>(null);
@@ -16,7 +15,7 @@ function App() {
   useEffect(() => {
       setOnSessionExpired(() => setAuthenticatedUser(null));
 
-      getMe().then(user => {
+      restoreSession().then(user => {
           if (user) {
               setAuthenticatedUser({name: user.username});
           }
@@ -27,9 +26,8 @@ function App() {
       setAuthenticatedUser({name: name});
   };
 
-  const logout = () => {
-      deleteToken();
-      setAuthenticatedUser(null);
+  const handleLogout = () => {
+      logout().then(() => setAuthenticatedUser(null));
   };
 
   return (
@@ -40,7 +38,7 @@ function App() {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/poll/:id" element={<PollPage/>}/>
                 <Route path="/profile" element={
-                    <ProfilePage authenticatedUser={authenticatedUser} onLogout={logout}/>}/>
+                    <ProfilePage authenticatedUser={authenticatedUser} onLogout={handleLogout}/>}/>
                 <Route path="/create" element={
                     <CreatePollPage authenticatedUser={authenticatedUser}/>}/>
             </Routes>
