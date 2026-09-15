@@ -5,18 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="399d568f-606b-4d94-bc61-5627567681ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/shared/Validation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/Authorization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/dto/UserDTO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/ApiRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/Token.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/db/Polls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db/Polls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/db/Proxy.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db/Proxy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/db/Users.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db/Users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/EditSingleAnswerItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/EditSingleAnswerItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/SingleAnswerItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/SingleAnswerItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/AuthModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/AuthModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/CreateForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/CreateForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/RegisterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/RegisterModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/SingleAnswerForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/SingleAnswerForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/CloseButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/CloseButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/InputFieldWithLabel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/InputFieldWithLabel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Input.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Input.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +110,7 @@
       <workItem from="1788538215111" duration="12216000" />
       <workItem from="1788596196474" duration="8461000" />
       <workItem from="1788776962105" duration="14195000" />
-      <workItem from="1789370576843" duration="9845000" />
+      <workItem from="1789370576843" duration="12029000" />
     </task>
     <servers />
   </component>

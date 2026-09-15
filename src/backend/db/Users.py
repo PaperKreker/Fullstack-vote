@@ -71,6 +71,28 @@ class ProxyUser:
         finally:
             session.close()
 
+    def get_user_by_username(self, username: str) -> dict | None:
+        session = self.parent.session_local()
+        try:
+            stmt = select(User).where(User.username == username)
+            user = session.execute(stmt).scalar_one_or_none()
+
+            if not user:
+                print(f"Пользователь с логином '{username}' не найден.")
+                return None
+
+            return {
+                "id": user.id,
+                "username": user.username,
+                "password": user.password,
+            }
+
+        except Exception as e:
+            print(f"Ошибка при получении данных пользователя: {e}")
+            return None
+        finally:
+            session.close()
+
     def delete_user(self, user_id: int) -> bool:
         session = self.parent.session_local()
         try:

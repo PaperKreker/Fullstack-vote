@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import ProgrammingError
 
 from db import Models
 from db.Polls import ProxyPoll
@@ -27,15 +26,16 @@ class DBProxy():
         SYS_DATABASE_URL = f"postgresql+psycopg2://{db_env.USER}:{db_env.PASSWORD}@{db_env.HOST}:{db_env.PORT}/postgres"
         sys_engine = create_engine(SYS_DATABASE_URL)
 
-        try:
-            with sys_engine.connect().execution_options(isolation_level="AUTOCOMMIT") as conn:
-                conn.execute(text(f"CREATE DATABASE {db_env.NAME}"))
-                print(f"База данных '{db_env.NAME}' успешно создана!")
-        except ProgrammingError as e:
-            if "already exists" in str(e):
+        with sys_engine.connect().execution_options(isolation_level="AUTOCOMMIT") as conn:
+            stmt = text("SELECT 1 FROM pg_database WHERE datname = :name")
+            db_exists = conn.execute(stmt, {"name": db_env.NAME}).scalar_one_or_none()
+
+            if db_exists:
                 print(f"База данных '{db_env.NAME}' уже существует, пропускаем создание.")
-            else:
-                raise e
+                return
+
+            conn.execute(text(f"CREATE DATABASE {db_env.NAME}"))
+            print(f"База данных '{db_env.NAME}' успешно создана!")
 
 
     def connect_to_db(self):

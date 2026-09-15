@@ -11,7 +11,7 @@ class ProxyPoll:
         self.parent = parent
 
 
-    def create_poll(self, author_id: int, title: str, description: str | None, option_texts: List[str]) -> Poll | None:
+    def create_poll(self, author_id: int, title: str, description: str | None, option_texts: List[str]) -> int | None:
         if not option_texts or len(option_texts) < 2:
             print("Ошибка: В голосовании должно быть как минимум 2 варианта ответа.")
             return None
@@ -33,7 +33,7 @@ class ProxyPoll:
             session.refresh(new_poll)
 
             print(f"Голосование '{title}' успешно создано с ID {new_poll.id}!")
-            return new_poll
+            return new_poll.id
 
         except Exception as e:
             session.rollback()

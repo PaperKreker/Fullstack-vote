@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {AppHeader} from "../widgets/AppHeader";
@@ -7,15 +7,26 @@ import {HomePage} from '../pages/HomePage';
 import {VotePage} from '../pages/VotePage';
 import {CreateVotePage} from "../pages/CreateVotePage";
 import {ProfilePage} from "../pages/ProfilePage";
+import {getMe} from "../shared/ApiRequest";
+import {deleteToken} from "../shared/Token";
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState<{name: string} | null>(null);
+
+  useEffect(() => {
+      getMe().then(user => {
+          if (user) {
+              setAuthenticatedUser({name: user.username});
+          }
+      });
+  }, []);
 
   const login = (name: string) => {
       setAuthenticatedUser({name: name});
   };
 
   const logout = () => {
+      deleteToken();
       setAuthenticatedUser(null);
   };
 

@@ -1,32 +1,38 @@
 import {InputFieldWithLabel} from "../shared/InputFieldWithLabel";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Modal} from "../shared/Modal";
 import {checkLogin, checkPassword} from "../shared/Validation";
+import {login} from "../shared/ApiRequest";
 
 export function AuthModal(
     {onClose, onSwitchToRegister, onLogin} :
     {onClose: () => void, onSwitchToRegister: () => void, onLogin: (name: string) => void}){
-    const [login, setLogin] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState({login: "", password: ""});
+    const [errors, setErrors] = useState({username: "", password: "", loginError: ""});
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const newErrors = {
-            login: checkLogin(login),
-            password: checkPassword(password),
-        };
-        setErrors(newErrors);
+        tryLogin().then();
+    }
 
-        if (newErrors.login || newErrors.password) {
+    async function tryLogin() {
+        const usernameError = checkLogin(username);
+        const passwordError = checkPassword(password);
+        setErrors({username: usernameError, password: passwordError, loginError: ""});
+
+        if (usernameError || passwordError) {
             return;
         }
 
-        console.log(JSON.stringify({login, password}, null, 2));
-
-        // DEBUG
-        onLogin(login);
+        const loginSuccessful = await login(username, password);
+        if (loginSuccessful) {
+            onLogin(username);
+        }
+        else {
+            setErrors({username: usernameError, password: passwordError, loginError: "Данные пользователя неверны"});
+        }
     }
 
     return (
@@ -38,9 +44,9 @@ export function AuthModal(
                     label={"Логин"}
                     inputType={"text"}
                     placeholder={"Вася..."}
-                    value={login}
-                    onChange={setLogin}
-                    error={errors?.login}/>
+                    value={username}
+                    onChange={setUsername}
+                    error={errors?.username}/>
                 <InputFieldWithLabel
                     label={"Пароль"}
                     inputType={"password"}
@@ -52,6 +58,7 @@ export function AuthModal(
                     <button className={"success"} type={"submit"}>Войти</button>
                     <button onClick={onSwitchToRegister}>Зарегистрироваться</button>
                 </div>
+                {errors.loginError && <p className={"errorText"}>{errors.loginError}</p>}
             </form>
         </Modal>
     )
