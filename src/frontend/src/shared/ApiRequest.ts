@@ -61,6 +61,13 @@ const refreshAccessToken = () => {
     return refreshRequest;
 };
 
+const ensureToken = async () => {
+    if (getToken()) {
+        return true;
+    }
+    return refreshAccessToken();
+};
+
 const authorizedFetch = async (url: string, method: string = "GET", body: object | null = null) => {
     const headers: Record<string, string> = {"Authorization": "Bearer " + getToken()};
 
@@ -160,7 +167,7 @@ export const restoreSession = async () => {
 };
 
 export const getMe = async () => {
-    if (!getToken()) {
+    if (!await ensureToken()) {
         return null;
     }
 
@@ -181,7 +188,7 @@ export const getMe = async () => {
 };
 
 export const getMyPolls = async () => {
-    if (!getToken()) {
+    if (!await ensureToken()) {
         return null;
     }
 
@@ -202,7 +209,7 @@ export const getMyPolls = async () => {
 };
 
 export const getPoll = async (id: number) => {
-    if (!getToken()) {
+    if (!await ensureToken()) {
         return {success: false, error: "Чтобы открыть голосование, нужно зайти в аккаунт.", poll: null};
     }
 
@@ -224,7 +231,7 @@ export const getPoll = async (id: number) => {
 };
 
 export const createPoll = async (title: string, description: string, answers: string[]) => {
-    if (!getToken()) {
+    if (!await ensureToken()) {
         return {success: false, error: "Чтобы создать голосование, нужно зайти в аккаунт."};
     }
 
@@ -250,7 +257,7 @@ export const createPoll = async (title: string, description: string, answers: st
 };
 
 export const deletePoll = async (id: number) => {
-    if (!getToken()) {
+    if (!await ensureToken()) {
         return {success: false, error: "Чтобы удалить голосование, нужно зайти в аккаунт."};
     }
 
@@ -272,7 +279,7 @@ export const deletePoll = async (id: number) => {
 };
 
 export const voteInPoll = async (pollId: number, optionId: number) => {
-    if (!getToken()) {
+    if (!await ensureToken()) {
         return {success: false, error: "Чтобы проголосовать, нужно зайти в аккаунт."};
     }
 

@@ -11,6 +11,7 @@ import {logout, restoreSession, setOnSessionExpired} from "../shared/ApiRequest"
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState<{name: string} | null>(null);
+  const [sessionChecked, setSessionChecked] = useState(false);
 
   useEffect(() => {
       setOnSessionExpired(() => setAuthenticatedUser(null));
@@ -19,6 +20,7 @@ function App() {
           if (user) {
               setAuthenticatedUser({name: user.username});
           }
+          setSessionChecked(true);
       });
   }, []);
 
@@ -29,6 +31,16 @@ function App() {
   const handleLogout = () => {
       logout().then(() => setAuthenticatedUser(null));
   };
+
+  if (!sessionChecked) {
+      return (
+          <div className="App">
+              <div className="roundedFrame">
+                  <h1>Загрузка...</h1>
+              </div>
+          </div>
+      )
+  }
 
   return (
     <div className="App">
