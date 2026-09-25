@@ -15,11 +15,12 @@ export function PublishedPollCard(
     return (
         <div className="roundedFrame">
             <div style={{
+                width: "100%",
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
                 gap: '10px'}}>
-                <div>
+                <div style={{minWidth: 0, overflowWrap: "break-word"}}>
                     <h4>{title}</h4>
                     <p>{description}</p>
                 </div>
