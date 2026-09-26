@@ -4,8 +4,8 @@ import {checkPoll} from "../shared/Validation";
 import {voteInPoll} from "../shared/ApiRequest";
 
 export function SingleAnswerForm(
-    {pollId, title, description, answers, isVoted, onVoted} :
-    {pollId: number, title: string, description: string, answers: {id: number, text: string}[], isVoted: boolean, onVoted: () => void}) {
+    {code, title, description, answers, isVoted, onVoted} :
+    {code: string, title: string, description: string, answers: {id: number, text: string}[], isVoted: boolean, onVoted: () => void}) {
     const [selected, setSelected] = useState(-1);
     const [errors, setErrors] = useState({answer: ""});
 
@@ -23,7 +23,7 @@ export function SingleAnswerForm(
             return;
         }
 
-        const result = await voteInPoll(pollId, selected);
+        const result = await voteInPoll(code, selected);
         if (result.success) {
             onVoted();
         }

@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {getPoll} from "../shared/ApiRequest";
 
 type ApiPoll = {
-    id: number,
+    code: string,
     title: string,
     description: string | null,
     author_id: number,
@@ -13,7 +13,7 @@ type ApiPoll = {
 }
 
 export function PollPage() {
-    const {id} = useParams();
+    const {code} = useParams();
     const [poll, setPoll] = useState<ApiPoll | null>(null);
     const [error, setError] = useState("");
     const [isVoted, setIsVoted] = useState(false);
@@ -21,7 +21,7 @@ export function PollPage() {
     useEffect(() => {
         let ignore = false;
 
-        getPoll(Number(id)).then(result => {
+        getPoll(String(code)).then(result => {
             if (!ignore) {
                 if (result.success) {
                     setPoll(result.poll);
@@ -36,7 +36,7 @@ export function PollPage() {
         return () => {
             ignore = true;
         };
-    }, [id]);
+    }, [code]);
 
     if (error) {
         return (
@@ -60,7 +60,7 @@ export function PollPage() {
 
     return (
         <SingleAnswerForm
-            pollId={poll.id}
+            code={poll.code}
             title={poll.title}
             description={poll.description ?? ""}
             answers={poll.options.map(option => ({id: option.id, text: option.option_text}))}

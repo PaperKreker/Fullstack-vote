@@ -5,6 +5,7 @@ import {deletePoll, getMyPolls} from "../shared/ApiRequest";
 
 type ApiPollWithResults = {
     id: number,
+    code: string,
     title: string,
     description: string | null,
     total_votes: number,
@@ -13,6 +14,7 @@ type ApiPollWithResults = {
 
 type PublishedPoll = {
     id: number,
+    code: string,
     title: string,
     description: string,
     answers: string[],
@@ -33,6 +35,7 @@ export function ProfilePage(
             if (!ignore && polls) {
                 setPublishedPolls(polls.map((poll: ApiPollWithResults) => ({
                     id: poll.id,
+                    code: poll.code,
                     title: poll.title,
                     description: poll.description ?? "",
                     answers: poll.results.map(result => result.option_text),
@@ -92,6 +95,7 @@ export function ProfilePage(
                         <PublishedPollCard
                             key={poll.id}
                             id={poll.id}
+                            code={poll.code}
                             title={poll.title}
                             description={poll.description}
                             answers={poll.answers}

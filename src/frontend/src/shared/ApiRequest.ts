@@ -208,13 +208,13 @@ export const getMyPolls = async () => {
     }
 };
 
-export const getPoll = async (id: number) => {
+export const getPoll = async (code: string) => {
     if (!await ensureToken()) {
         return {success: false, error: "Чтобы открыть голосование, нужно зайти в аккаунт.", poll: null};
     }
 
     try {
-        const response = await authorizedFetch(API_URL + "/poll/?poll_id=" + id);
+        const response = await authorizedFetch(API_URL + "/poll/?code=" + code);
 
         if (!response.ok) {
             if (isSessionExpired(response)) {
@@ -278,14 +278,14 @@ export const deletePoll = async (id: number) => {
     }
 };
 
-export const voteInPoll = async (pollId: number, optionId: number) => {
+export const voteInPoll = async (code: string, optionId: number) => {
     if (!await ensureToken()) {
         return {success: false, error: "Чтобы проголосовать, нужно зайти в аккаунт."};
     }
 
     try {
         const response = await authorizedFetch(API_URL + "/poll/vote/", "POST", {
-            poll_id: pollId,
+            code: code,
             option_id: optionId,
         });
 

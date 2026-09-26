@@ -48,7 +48,7 @@ function App() {
             <AppHeader authenticatedUser={authenticatedUser} onLogin={login}/>
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
-                <Route path="/poll/:id" element={<PollPage/>}/>
+                <Route path="/poll/:code" element={<PollPage/>}/>
                 <Route path="/profile" element={
                     <ProfilePage authenticatedUser={authenticatedUser} onLogout={handleLogout}/>}/>
                 <Route path="/create" element={

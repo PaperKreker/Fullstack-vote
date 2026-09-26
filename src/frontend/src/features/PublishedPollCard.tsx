@@ -3,8 +3,8 @@ import {CloseButton} from "../shared/CloseButton";
 import {PollResultItem} from "../entities/PollResultItem";
 
 export function PublishedPollCard(
-    {id, title, description, answers, votes, onDelete} :
-    {id: number, title: string, description: string, answers: string[], votes: number[], onDelete: (id: number) => void}) {
+    {id, code, title, description, answers, votes, onDelete} :
+    {id: number, code: string, title: string, description: string, answers: string[], votes: number[], onDelete: (id: number) => void}) {
     const navigate = useNavigate();
 
     let allVotes = 0;
@@ -25,7 +25,7 @@ export function PublishedPollCard(
                     <p>{description}</p>
                 </div>
                 <div style={{marginTop: '10px', display: 'flex', alignItems: 'center', gap: '10px'}}>
-                    <button onClick={() => navigate("/poll/" + id)}>Открыть</button>
+                    <button onClick={() => navigate("/poll/" + code)}>Открыть</button>
                     <CloseButton onClick={() => onDelete(id)}/>
                 </div>
             </div>
